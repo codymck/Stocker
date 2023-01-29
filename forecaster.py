@@ -1,7 +1,3 @@
-import random
-
-import forecast as forecast
-import pandas as pd
 import yfinance as yf
 from datetime import date, datetime
 import boto3

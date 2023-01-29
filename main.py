@@ -4,7 +4,6 @@ import forecaster
 import requests
 from bs4 import BeautifulSoup
 
-
 def main(data):
     # input market sector: energy, healthcare, financial, tech
     market_sector = data.get('market')
