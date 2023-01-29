@@ -15,18 +15,11 @@ def formatData(t):
     except:
         return
 
-    today = date.today()
-
-    yearAgo = today.day.__str__()
-    yearAgo += today.month.__str__()
-    yearAgo += (today.year - 1).__str__()
-
-    begin = datetime.strptime(yearAgo, '%d%m%Y').date()
-
-    df = data.history(start=begin, end=today, interval="1d")
+    df = data.history(period="1y", interval="1d")
 
     df.insert(0, 'timestamp', df.index)
-    df['timestamp'] = df['timestamp'].dt.date
+
+    df['timestamp'] = df['timestamp'].dt.strftime('%Y-%m-%d')
 
     df.pop('Dividends')
     df.pop('Stock Splits')

@@ -34,7 +34,7 @@
             <a href="{{ dict['article_link'] }}">
                 <h6 style="float: right; padding-right: 3%; padding-top: 1%">{{ dict['article_name'] }}</h6>
             </a>
-            <img src="/static/forecast.png" alt="forecast" style="width: 90%; margin-bottom: 1px;">
+            <img src="/static/forecast.png" alt="forecast" style="width: 90%; margin: auto; display: block;">
         </div>
         {% endfor %}
 
@@ -45,7 +45,7 @@
                 new TradingView.widget(
                     {
                         "autosize": false,
-                        "symbol": "NASDAQ:{{ dict['ticker'] }}",
+                        "symbol": "NASDAQ:GOOGL",
                         "interval": "D",
                         "timezone": "Etc/UTC",
                         "theme": "light",

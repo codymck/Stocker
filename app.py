@@ -26,7 +26,6 @@ def results():
     return_data = main.main(result)
     return render_template('results.html', result=return_data)
 
-
 @app.route('/home')
 def back():
     title = "Stocker - Track and predict stock movement"

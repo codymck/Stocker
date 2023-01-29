@@ -42,9 +42,8 @@ def main(data):
     sentiment_results = []
 
     for stock in stocks:
-        sentiment_results.append(
-            score_sentiment.get_ticker_info(stock, stock_names[stock]))
-        # forecaster.formatData(stock)
+        sentiment_results.append(score_sentiment.get_ticker_info(stock, stock_names[stock]))
+        forecaster.formatData(stock)
 
     sorted_results = sorted(sentiment_results, reverse=True,
                             key=score_sentiment.return_score)

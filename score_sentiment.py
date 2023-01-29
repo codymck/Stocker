@@ -62,7 +62,8 @@ def get_ticker_info(ticker, stock_name):
         sum_of_scores += article.get('score')
 
     if len(articles) == 0:
-        return
+        return return_dict
+
     return_dict['overall_score'] = sum_of_scores / len(articles)
     print(f'{ticker}: Overall score: {sum_of_scores / len(articles)}')
 
