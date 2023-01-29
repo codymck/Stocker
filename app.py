@@ -1,3 +1,4 @@
+import main
 from flask import Flask, request, render_template
 import json
 
@@ -21,13 +22,9 @@ def test():
 
 @app.route('/results', methods=['POST', 'GET'])
 def results():
-    t = "STONKS"
-
     result = request.form
-    print()
-    print(result)
-    print()
-    return render_template('results.html', title=t, result=result)
+    return_data = main.main(result)
+    return render_template('results.html', result=return_data)
 
 
 @app.route('/home')
