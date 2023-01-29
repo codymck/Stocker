@@ -1,0 +1,36 @@
+datalist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* width: 80%; */
+}
+
+option {
+    padding: 5px;
+}
+
+.range-wrap {
+    position: relative;
+    margin: 0 auto 2rem;
+}
+
+.bubble {
+    background-color: blue;
+    color: white;
+    padding: 4px 12px;
+    position: absolute;
+    border-radius: 4px;
+    left: 50%;
+    top: 25px;
+    transform: translateX(-50%);
+}
+
+.bubble::after {
+    /* content: ""; */
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: blue;
+    top: -5px;
+    left: 50px;
+}

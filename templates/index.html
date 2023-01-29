@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- custom CSS -->
+    <link rel="stylesheet" href="/static/custom.css">
+    <!-- adding jquery with CDN -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div style="background-color: #05078A; text-align: center; min-height: 80px !important;"
+        class="container-fluid text-white shadow-lg">
+        <div>
+            <h1 style="display: inline-block; padding-top: 14px; padding-bottom: 16px;">Stocker</h1>
+            <img src="/static/Stocker.png" alt="logo"
+                style="width: 5rem; height: 5rem; position: absolute; float: right; margin-right: 10px;">
+
+        </div>
+
+    </div>
+
+
+    <div style="text-align: center;" class="container">
+        <form id="form" method="post">
+            <div class="selections" style="text-align: center;">
+                <div class="risk">
+                    <p style="padding-top: 3%; font-size: 30px;">
+                        <b>Risk</b>
+                    </p>
+
+                    <div style="padding-bottom: 20px;" class="btn-group btn-group-lg" role="group1">
+                        <input type="radio" oninput="updateValue()" class="btn-check" name="risk" value="lowRisk"
+                            id="lowRisk" autocomplete="off">
+                        <label class="btn btn-warning" for="lowRisk">Low</label>
+
+                        <input type="radio" oninput="updateValue()" class="btn-check" name="risk" value="highRisk"
+                            id="highRisk" autocomplete="off">
+                        <label class="btn btn-warning" for="highRisk">High</label>
+                    </div>
+                </div>
+
+                <p style="display: inline-block; font-size: 30px;">
+                    <b>Market Sector</b>
+                </p>
+                <div class="domain">
+                    <div style="padding-bottom: 20px;" class="btn-group btn-group-lg" role="group2">
+                        <input type="radio" oninput="updateValue()" class="btn-check" name="market" value="tech"
+                            id="tech" autocomplete="off">
+                        <label class="btn btn-warning" for="tech">Technology</label>
+
+                        <input type="radio" oninput="updateValue()" class="btn-check" name="market" value="healthcare"
+                            id="healthcare" autocomplete="off">
+                        <label class="btn btn-warning" for="healthcare">Healthcare</label>
+
+                        <input type="radio" oninput="updateValue()" class="btn-check" name="market" value="finance"
+                            id="finance" autocomplete="off">
+                        <label class="btn btn-warning" for="finance">Finance</label>
+
+                        <input type="radio" oninput="updateValue()" class="btn-check" name="market" value="energy"
+                            id="energy" autocomplete="off">
+                        <label class="btn btn-warning" for="energy">Energy</label>
+                    </div>
+                </div>
+
+                <div class="timeframe">
+                    <p style="margin-bottom: 0;"><label for="timerange" class="form-label"
+                            style="font-size: 30px;"><b>Timeframe</b></label></p>
+                    <div class="range-wrap">
+                        <input id="timerange" type="range" name="timeframe" class="form-range" min="1" max="7" value="1"
+                            oninput="updateValue()">
+                        <output class="bubble"></output>
+
+                        <script>
+                            const allRanges = document.querySelector(".range-wrap");
+                            const range = document.querySelector("#timerange");
+                            const bubble = document.querySelector(".bubble");
+                            range.addEventListener("input", () => {
+                                setBubble(range, bubble);
+                            });
+                            setBubble(range, bubble);
+
+                            function setBubble(range, bubble) {
+                                const val = range.value;
+                                const min = range.min ? range.min : 0;
+                                const max = range.max ? range.max : 100;
+                                const newVal = Number(((val - min) * 100) / (max - min));
+
+                                if (val == 1) bubble.innerHTML = "3 months";
+                                if (val == 2) bubble.innerHTML = "6 months";
+                                if (val == 3) bubble.innerHTML = "9 months";
+                                if (val == 4) bubble.innerHTML = "1 year";
+                                if (val == 5) bubble.innerHTML = "3 years";
+                                if (val == 6) bubble.innerHTML = "5 years";
+                                if (val == 7) bubble.innerHTML = "10 years";
+
+
+                                bubble.style.left = newVal + "%";
+                            }
+                        </script>
+                    </div>
+                </div>
+                <button type="button" id="submit" class="btn btn-success">Submit</button>
+
+                <script>
+                    let riskSelection;
+                    let marketSelection;
+                    let time;
+                    function updateValue() {
+                        var slider = document.getElementById("timerange");
+                        time = slider.value;
+                        // console.log(time);
+
+                        var risk = document.getElementsByName('risk');
+                        for (i = 0; i < risk.length; i++) {
+                            if (risk[i].checked) {
+                                riskSelection = risk[i].value;
+                            }
+                        }
+
+                        var markets = document.getElementsByName('market');
+                        for (i = 0; i < markets.length; i++) {
+                            if (markets[i].checked) {
+                                marketSelection = markets[i].value;
+                            }
+                        }
+
+                    }
+                    updateValue();
+
+                    document.getElementById('submit').addEventListener("click", function (e) {
+                        e.preventDefault();
+                        // console.log(riskSelection);
+                        // console.log(marketSelection);
+                        // console.log(time);
+
+                        const result = { riskSelection, marketSelection, time }; //riskSelection + " " + marketSelection + " " + time;
+
+                        const s = JSON.stringify(result);
+
+                        // console.log(s);
+
+                        $.ajax({
+                            url: "/test",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify(s)
+                        });
+                    });
+
+                </script>
+            </div>
+        </form>
+    </div>
+
+
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
