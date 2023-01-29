@@ -13,7 +13,8 @@ def get_ticker_info(ticker, stock_name):
     article_links = gn.get_links()  # get list of links from google news
 
     for i, name in enumerate(article_names):
-        articles.append({'name': name, 'link': article_links[i], 'text': [], 'score': 0})
+        articles.append(
+            {'name': name, 'link': article_links[i], 'text': [], 'score': 0})
 
     for article in articles:
         url = newspaper.Article(url="%s" % article.get('link'), language='en')
@@ -60,6 +61,8 @@ def get_ticker_info(ticker, stock_name):
 
         sum_of_scores += article.get('score')
 
+    if len(articles) == 0:
+        return
     return_dict['overall_score'] = sum_of_scores / len(articles)
     print(f'{ticker}: Overall score: {sum_of_scores / len(articles)}')
 

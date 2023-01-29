@@ -4,6 +4,7 @@ import forecaster
 import requests
 from bs4 import BeautifulSoup
 
+
 def main(data):
     # input market sector: energy, healthcare, financial, tech
     market_sector = data.get('market')
@@ -41,10 +42,12 @@ def main(data):
     sentiment_results = []
 
     for stock in stocks:
-        sentiment_results.append(score_sentiment.get_ticker_info(stock, stock_names[stock]))
-        forecaster.formatData(stock)
+        sentiment_results.append(
+            score_sentiment.get_ticker_info(stock, stock_names[stock]))
+        # forecaster.formatData(stock)
 
-    sorted_results = sorted(sentiment_results, reverse=True, key=score_sentiment.return_score)
+    sorted_results = sorted(sentiment_results, reverse=True,
+                            key=score_sentiment.return_score)
 
     top_three = []
     for i in range(3):

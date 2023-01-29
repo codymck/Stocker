@@ -27,6 +27,14 @@
 
     </div>
 
+    <div class="loading" id="spinner-div">
+        <h1 style="color: white; text-align: center; padding-top: 10%;">Please Wait While We Collect Data From The Web
+        </h1>
+        <div id="spinner"></div>
+    </div>
+
+    <script>$(".loading").hide();</script>
+
     <div style="text-align: center;" class="container">
         <form id="form" action="/results" method="POST">
             <div class="selections" style="text-align: center;">
@@ -135,10 +143,7 @@
                     updateValue();
 
                     document.getElementById('submit').addEventListener("click", function (e) {
-                        // e.preventDefault();
-                        // console.log(riskSelection);
-                        // console.log(marketSelection);
-                        // console.log(time);
+                        $(".loading").show();
 
                         updateValue();
 
