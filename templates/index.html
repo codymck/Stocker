@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div style="background-color: #05078A; text-align: center; min-height: 80px !important;"
+    <div style="background: rgb(21,15,117); background: radial-gradient(circle, rgba(21,15,117,1) 0%, rgba(12,12,156,1) 77%, rgba(11,73,170,1) 100%); text-align: center; min-height: 80px !important;"
         class="container-fluid text-white shadow-lg">
         <div>
             <h1 style="display: inline-block; padding-top: 14px; padding-bottom: 16px;">Stocker</h1>
@@ -27,9 +27,8 @@
 
     </div>
 
-
     <div style="text-align: center;" class="container">
-        <form id="form" method="post">
+        <form id="form" action="/results" method="POST">
             <div class="selections" style="text-align: center;">
                 <div class="risk">
                     <p style="padding-top: 3%; font-size: 30px;">
@@ -107,7 +106,7 @@
                         </script>
                     </div>
                 </div>
-                <button type="button" id="submit" class="btn btn-success">Submit</button>
+                <button type="submit" id="submit" class="btn btn-success">Submit</button>
 
                 <script>
                     let riskSelection;
@@ -136,10 +135,12 @@
                     updateValue();
 
                     document.getElementById('submit').addEventListener("click", function (e) {
-                        e.preventDefault();
+                        // e.preventDefault();
                         // console.log(riskSelection);
                         // console.log(marketSelection);
                         // console.log(time);
+
+                        updateValue();
 
                         const result = { riskSelection, marketSelection, time }; //riskSelection + " " + marketSelection + " " + time;
 

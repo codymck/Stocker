@@ -10,17 +10,30 @@ def home():
     return render_template('index.html', title=title)
 
 
-@app.route('/test', methods=['POST'])
+@app.route('/test', methods=['POST', 'GET'])
 def test():
     output = request.get_json()
 
     result = json.loads(output)
 
-    print(result)
-
-    print(type(result))
-
     return result
+
+
+@app.route('/results', methods=['POST', 'GET'])
+def results():
+    t = "STONKS"
+
+    result = request.form
+    print()
+    print(result)
+    print()
+    return render_template('results.html', title=t, result=result)
+
+
+@app.route('/home')
+def back():
+    title = "Stocker - Track and predict stock movement"
+    return render_template('index.html', title=title)
 
 
 if __name__ == '__main__':
